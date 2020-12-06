@@ -1,7 +1,6 @@
 #!groovy
 pipeline {
   agent {
-        label 'docker'
         docker {
             label 'docker'
             image 'maven:3-alpine'
