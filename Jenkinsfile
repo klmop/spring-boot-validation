@@ -1,17 +1,17 @@
 #!groovy
 pipeline {
   agent {
-        label 'docker'
-  }
-  agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock' //here we expose docker socket to container. Now we can build docker images in the same way as on host machine where docker daemon is installed
-            label 'docker'
-        }
+    label 'docker'
   }
    stages {     
     stage('Maven Compile') {
+        agent {
+            docker {
+                image 'maven:3-alpine'
+                args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock' //here we expose docker socket to container. Now we can build docker images in the same way as on host machine where docker daemon is installed
+                label 'docker'
+            }
+        }
       steps {
         sh 'mvn -DskipTests clean compile'
       }
@@ -27,6 +27,13 @@ pipeline {
     //     }
     //   }
      stage('Maven Build') {
+         gent {
+            docker {
+                image 'maven:3-alpine'
+                args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock' //here we expose docker socket to container. Now we can build docker images in the same way as on host machine where docker daemon is installed
+                label 'docker'
+            }
+        }
         steps {
             // sh 'mvn -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock docker:build'
             echo "Running ${env.BUILD_ID} on ${env.NODE_NAME}"
