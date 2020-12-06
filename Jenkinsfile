@@ -24,7 +24,7 @@ pipeline {
       }
      stage('Deliver') {
         steps {
-            sh './jenkins/scripts/deliver.sh'
+            // sh './jenkins/scripts/deliver.sh'
             echo "Running ${env.BUILD_ID} on ${env.NODE_NAME}"
             input message: 'Voulez-vous continuer le build? (Cliquer sur "Aller" pour continuer)'
         }
