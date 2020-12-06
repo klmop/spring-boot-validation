@@ -30,7 +30,7 @@ pipeline {
             }
         }
         steps {
-            sh 'mvn -Ddocker.skip=false -Ddocker.host=linux:///var/run/docker.sock docker:build'
+            sh 'mvn -Ddocker.skip=false -Ddocker.host=file:///var/run/docker.sock docker:build'
             echo "Running ${env.BUILD_ID} on ${env.NODE_NAME}"
             input message: 'Voulez-vous continuer le build? (Cliquer sur "Aller" pour continuer)'
             bat 'docker run -d -p 127.0.0.1:8081:8081 docker-demo'
