@@ -23,6 +23,12 @@ pipeline {
         }
       }
      stage('Maven Build') {
+         agent {
+            docker {
+                image 'maven:latest'
+                args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock' //here we expose docker socket to container. Now we can build docker images in the same way as on host machine where docker daemon is installed
+            }
+        }
         steps {
             sh 'mvn -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock docker:build'
             echo "Running ${env.BUILD_ID} on ${env.NODE_NAME}"
