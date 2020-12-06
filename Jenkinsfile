@@ -7,12 +7,12 @@ pipeline {
       }
   }
    stages {     
-    stage('Maven Install') {
+    stage('Maven Package') {
       steps {
-        sh 'mvn -DskipTests clean install'
+        sh 'mvn -DskipTests clean package'
       }
      }
-     stage('Tests') {
+     stage('Maven Tests') {
         steps {
             sh 'mvn test'
         }
@@ -24,7 +24,7 @@ pipeline {
       }
      stage('Deliver') {
         steps {
-            sh './mvnw package'
+            sh './jenkins/scripts/deliver.sh'
             echo "Running ${env.BUILD_ID} on ${env.NODE_NAME}"
             input message: 'Voulez-vous continuer le build? (Cliquer sur "Aller" pour continuer)'
         }
