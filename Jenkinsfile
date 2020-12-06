@@ -27,7 +27,7 @@ pipeline {
     //     }
     //   }
      stage('Maven Build') {
-         gent {
+         agent {
             docker {
                 image 'maven:3-alpine'
                 args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock' //here we expose docker socket to container. Now we can build docker images in the same way as on host machine where docker daemon is installed
