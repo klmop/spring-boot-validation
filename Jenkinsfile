@@ -22,7 +22,7 @@ pipeline {
             }
         }
       }
-     stage('Deliver') {
+     stage('Maven Build') {
         steps {
             sh 'mvn -Ddocker.skip=false -Ddocker.host=unix:///var/run/docker.sock docker:build'
             echo "Running ${env.BUILD_ID} on ${env.NODE_NAME}"
