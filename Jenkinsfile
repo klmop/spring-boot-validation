@@ -13,7 +13,7 @@ pipeline {
             }
         }
       steps {
-        sh 'mvn -DskipTests clean compile'
+        sh 'mvn -DskipTests clean package'
       }
      }
     //  stage('Maven Tests') {
